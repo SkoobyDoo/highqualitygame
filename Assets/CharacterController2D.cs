@@ -3,19 +3,16 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
-	[Range(0, .5f)] [SerializeField] private float m_HorizontalMovementSmoothing = .05f;	// How much to smooth out the movement
-	[Range(0, .5f)] [SerializeField] private float m_VerticalMovementSmoothing = .05f;	// How much to smooth out the movement
+	[Range(0, .5f)] [SerializeField] private float m_MovementSmoothing = .4f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = true;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
-	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
 
 	public float horizontalAcceleration = 1f;
 	public float maxHorizontalSpeed = 60f;
 	public float verticalAcceleration = 1f;
+	public float maxVerticalSpeed = 60f;
 	
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -32,18 +29,12 @@ public class CharacterController2D : MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
-	public BoolEvent OnCrouchEvent;
-	private bool m_wasCrouching = false;
-
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
-
-		if (OnCrouchEvent == null)
-			OnCrouchEvent = new BoolEvent();
 	}
 
 	private void FixedUpdate()
@@ -71,11 +62,15 @@ public class CharacterController2D : MonoBehaviour
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl)
 		{
+			float yTargetSpeed = m_Rigidbody2D.velocity.y;
+			if (verticalMove != 0) {
+				yTargetSpeed = verticalMove * 10f * maxVerticalSpeed;
+			}
 
 			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(horizontalMove * 10f * maxHorizontalSpeed, m_Rigidbody2D.velocity.y);
+			Vector3 targetVelocity = new Vector2(horizontalMove * 10f * maxHorizontalSpeed, yTargetSpeed);
 			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_HorizontalMovementSmoothing);
+			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
 			if (horizontalMove > 0 && !m_FacingRight)
