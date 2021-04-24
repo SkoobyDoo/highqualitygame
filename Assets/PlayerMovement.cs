@@ -6,9 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
 	public CharacterController2D controller;
 	
-	public float flySpeed = 40f;
-	
 	float horizontalMove = 0f;
+	float verticalMove = 0f;
 	
     // Start is called before the first frame update
     void Start()
@@ -19,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * flySpeed;
+        horizontalMove = Input.GetAxisRaw("Horizontal");
     }
 	
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
     }
 }
