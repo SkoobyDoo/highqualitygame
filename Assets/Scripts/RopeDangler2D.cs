@@ -42,6 +42,9 @@ public class RopeDangler2D : MonoBehaviour
 		finaldude.transform.position = lastRopeSegment.transform.position;
 		finaldude.transform.position = new Vector2(finaldude.transform.localPosition.x, finaldude.transform.localPosition.y - m_segmentLength - m_segmentGap);
 		finaldude.transform.SetParent(lastRopeSegment.transform);
+		
+		CameraFollow camScript = GetComponent<CameraFollow>();
+		camScript.m_cameraFollowTargets.Add(finaldude);
     }
 
     // Update is called once per frame
