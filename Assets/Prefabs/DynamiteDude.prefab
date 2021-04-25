@@ -122,6 +122,8 @@ MonoBehaviour:
   m_throwStrength: 8
   m_throwRatio: 12
   dudeIsAlive: 1
+  DurationThrowPrepTimeSeconds: 3
+  maxThrowMagnitude: 25
 --- !u!50 &6751657228828226209
 Rigidbody2D:
   serializedVersion: 4
