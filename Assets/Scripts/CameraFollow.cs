@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 	public GameObject m_camera;
+	public Gradient m_backgroundGradient; // gradient for color between min and max depth
+	public float m_minDepth = 0f; // depth to use first gradient color above
+	public float m_maxDepth = -100f; // depth to use second gradient color below
 	public List<GameObject> m_cameraFollowTargets = new List<GameObject>();
 	[Range(0, .5f)] public float m_cameraPosSmoothing = .5f;
 	public float m_minCameraSize = 5f;
@@ -41,6 +44,10 @@ public class CameraFollow : MonoBehaviour
 		float targetZoom = Mathf.Lerp(m_minCameraSize,m_maxCameraSize,speedRatio);
 		Camera cam = m_camera.GetComponent<Camera>();
 		cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref camZoomVelocity, m_cameraZoomSmoothing);
+		
+		//cameraGradient
+		float depthRatio = ( Mathf.Clamp(m_cameraFollowTargets[0].transform.position.y, m_maxDepth, m_minDepth) - m_minDepth ) / (m_maxDepth - m_minDepth);
+		cam.backgroundColor = m_backgroundGradient.Evaluate(depthRatio);
     }
 	
 }
