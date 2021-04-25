@@ -8,7 +8,7 @@ public class DynamiteBoomer : MonoBehaviour
 	public float m_duration = 5f;
 	
 	private float m_age = 0f;
-    public float explosionRadius = 2.5f;
+    public float explosionRadius = 25.0f;
 	
     // Start is called before the first frame update
     void Start()
@@ -28,17 +28,18 @@ public class DynamiteBoomer : MonoBehaviour
 		if( m_age > m_duration ) {
 			// TODO: bewm?
 			Instantiate(m_particle,transform.position, Quaternion.identity);
-			Destroy(gameObject);
             ExplosionDamage(gameObject.transform.position, explosionRadius);
-		}
+            Destroy(gameObject);
+        }
     }
 
     void ExplosionDamage(Vector2 center, float radius)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
         foreach (var hitCollider in hitColliders)
         {
             {
+                Debug.Log("founda");
                 hitCollider.SendMessage("AddDamage");
             }
         }
