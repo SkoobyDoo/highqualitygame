@@ -116,8 +116,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 3045406731723569001, guid: c0e8ea0df424971478f08784f29b270e, type: 3}
+  spriteRenderer: {fileID: 0}
+  dedSprite: {fileID: 21300000, guid: 6be02e6152248024993e2a39e7a63cbb, type: 3}
+  aliveSprite: {fileID: 21300000, guid: 79ebb8600a4f6a9489007e085798ca8b, type: 3}
   m_throwStrength: 8
   m_throwRatio: 12
+  dudeIsAlive: 1
 --- !u!50 &6751657228828226209
 Rigidbody2D:
   serializedVersion: 4
