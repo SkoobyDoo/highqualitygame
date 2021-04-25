@@ -7,6 +7,7 @@ public class DynamiteBoomer : MonoBehaviour
 	public float m_duration = 5f;
 	
 	private float m_age = 0f;
+    public float explosionRadius = 2.5f;
 	
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,18 @@ public class DynamiteBoomer : MonoBehaviour
 		if( m_age > m_duration ) {
 			// TODO: bewm?
 			Destroy(gameObject);
+            ExplosionDamage(gameObject.transform.position, explosionRadius);
 		}
+    }
+
+    void ExplosionDamage(Vector2 center, float radius)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+        foreach (var hitCollider in hitColliders)
+        {
+            {
+                hitCollider.SendMessage("AddDamage");
+            }
+        }
     }
 }
