@@ -16,6 +16,7 @@ public class RopeDangler2D : MonoBehaviour
 	public float m_segmentGravity = 1f;
 	public float m_jointBreakForce = 2f;
 	
+	public GameObject m_finalObject; // object to stick on the end of the rope
 	
 	private GameObject lastRopeSegment;
 	
@@ -25,6 +26,17 @@ public class RopeDangler2D : MonoBehaviour
 		for(float i = 0; i < m_ropeLength; i+=m_segmentLength) {
 			AddRopeSegment();
 		}
+		
+		GameObject finaldude = Instantiate(m_finalObject, new Vector3(0,0,0), Quaternion.identity);
+		FixedJoint2D newFixedJoint = finaldude.GetComponent<FixedJoint2D>();
+		newFixedJoint.anchor = new Vector2(0f, m_segmentLength/2f);
+		newFixedJoint.connectedAnchor = new Vector2(0f, -m_segmentLength/2f);
+		Rigidbody2D lastBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+		newFixedJoint.connectedBody = lastBody;
+		
+		finaldude.transform.position = lastRopeSegment.transform.position;
+		finaldude.transform.position = new Vector2(finaldude.transform.localPosition.x, finaldude.transform.localPosition.y - m_segmentLength - m_segmentGap);
+		finaldude.transform.SetParent(lastRopeSegment.transform);
     }
 
     // Update is called once per frame
