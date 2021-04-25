@@ -39,7 +39,7 @@ public class DynamiteBoomer : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             {
-                Debug.Log("founda");
+                Debug.Log("found a damageable");
                 hitCollider.SendMessage("AddDamage");
             }
         }
