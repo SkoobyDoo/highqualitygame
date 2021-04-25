@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5218583142121267632}
   - component: {fileID: -467449062210480165}
   - component: {fileID: -5837253084678501955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RopePrefab1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8be9f705287a1044a80d5d3e4f5c6974, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5, g: 0.26586923, b: 0.058962256, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
