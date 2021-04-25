@@ -93,11 +93,6 @@ public class DynamiteThrower : MonoBehaviour
 		return ResultVal;
 	}
 
-	void AddDamage()
-	{
-		dudeIsAlive = false;
-	}
-
 	void ChangeSprite()
 	{
 		if (dudeIsAlive)
