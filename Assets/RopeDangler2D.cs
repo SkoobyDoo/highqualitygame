@@ -34,6 +34,11 @@ public class RopeDangler2D : MonoBehaviour
 		Rigidbody2D lastBody = lastRopeSegment.GetComponent<Rigidbody2D>();
 		newFixedJoint.connectedBody = lastBody;
 		
+		HingeJoint2D newHingeJoint = finaldude.GetComponent<HingeJoint2D>();
+		newHingeJoint.anchor = new Vector2(0f, m_segmentLength/2f);
+		newHingeJoint.connectedAnchor = new Vector2(0f, -m_segmentLength/2f);
+		newHingeJoint.connectedBody = lastBody;
+		
 		finaldude.transform.position = lastRopeSegment.transform.position;
 		finaldude.transform.position = new Vector2(finaldude.transform.localPosition.x, finaldude.transform.localPosition.y - m_segmentLength - m_segmentGap);
 		finaldude.transform.SetParent(lastRopeSegment.transform);
