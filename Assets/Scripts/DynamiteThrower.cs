@@ -23,7 +23,7 @@ public class DynamiteThrower : MonoBehaviour
 	{
 		if (!dudeIsAlive)
 		{
-			//ChangeSprite();
+			ChangeSprite();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
@@ -45,6 +45,11 @@ public class DynamiteThrower : MonoBehaviour
 			dynamiteBody.AddTorque(Random.Range(2f,-2f));
 		}
     }
+
+	void AddDamage()
+	{
+		dudeIsAlive = false;
+	}
 
 	void ChangeSprite()
 	{
