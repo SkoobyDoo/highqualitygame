@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DynamiteBoomer : MonoBehaviour
 {
+	public GameObject m_particle;
 	public float m_duration = 5f;
 	
 	private float m_age = 0f;
@@ -25,6 +26,7 @@ public class DynamiteBoomer : MonoBehaviour
         m_age += Time.fixedDeltaTime;
 		if( m_age > m_duration ) {
 			// TODO: bewm?
+			Instantiate(m_particle,transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
     }
