@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DynamiteThrower : MonoBehaviour
 {
@@ -11,12 +12,22 @@ public class DynamiteThrower : MonoBehaviour
 	public float m_throwStrength = 6f;
 	public float m_throwRatio = 12f;
 	public bool dudeIsAlive = true;
-	
-    // Start is called before the first frame update
-    void Start()
+	private string throwState = "Unprepped";
+	private long StartThrowPrepTime;
+	private long CurrentThrowPrepTime;
+	private long TargetThrowPrepTime;
+	public float DurationThrowPrepTimeSeconds = 3.0f;
+	private long DurationThrowPrepTime;
+	private float ResultVal;
+	private float CurrentSquashPercent;
+	public float maxThrowMagnitude = 20.0f;
+
+	// Start is called before the first frame update
+	void Start()
     {
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
+		DurationThrowPrepTime = (long)(10000000 * DurationThrowPrepTimeSeconds);
+	}
 
     // Update is called once per frame
     void Update()
@@ -32,19 +43,55 @@ public class DynamiteThrower : MonoBehaviour
 			ChangeSprite();
 		}
 
-		if (Input.GetButtonDown("Fire1")) {
+		if (Input.GetButton("Fire1"))
+		{
+			if (throwState == "Unprepped")
+			{ 
+				StartThrowPrepTime = DateTime.Now.Ticks;
+				TargetThrowPrepTime = DurationThrowPrepTime;
+				throwState = "PrepThrow";
+			}
+
+			if (throwState == "PrepThrow")
+			{
+				CurrentThrowPrepTime = DateTime.Now.Ticks - StartThrowPrepTime;
+				CurrentSquashPercent = SinSquashToTargetVal(CurrentThrowPrepTime, TargetThrowPrepTime);
+			}
+		}
+
+		if (Input.GetButtonUp("Fire1")) {
+			throwState = "Unprepped";
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			
-			Vector2 direction = (Vector2)((mousePos - transform.position));
-			float throwLength = direction.magnitude;
+
+			Vector2 direction = (Vector2)((mousePos - transform.position)); 
 			direction.Normalize();
+			float throwLength = CurrentSquashPercent * maxThrowMagnitude;
 			
 			GameObject dynamite = Instantiate(projectile, transform.position, Quaternion.identity);
 			Rigidbody2D dynamiteBody = dynamite.GetComponent<Rigidbody2D>();
-			dynamiteBody.velocity = direction * (m_throwStrength * throwLength / m_throwRatio);
-			dynamiteBody.AddTorque(Random.Range(2f,-2f));
+			dynamiteBody.velocity = direction * throwLength;
+			Debug.Log(CurrentSquashPercent);
+			Debug.Log(maxThrowMagnitude);
+			Debug.Log(throwLength);
+			dynamiteBody.AddTorque(UnityEngine.Random.Range(2f,-2f));
 		}
-    }
+	}
+
+	void AddDamage()
+	{
+		dudeIsAlive = false;
+	}
+
+	private float SinSquashToTargetVal(long CurrentTime, long TargetTime)
+	{
+		if (CurrentTime >= TargetTime)
+		{
+			return 1.0f;
+		}
+		ResultVal = (float)(-1.0 * Math.Cos((float)CurrentTime / (float)TargetTime * Math.PI) / 2.0 + 0.5);
+
+		return ResultVal;
+	}
 
 	void AddDamage()
 	{
