@@ -8,8 +8,10 @@ public class PauseMenu : MonoBehaviour
 	public GameObject PauseMenuObject;
 	public GameObject playerObject;
 	DynamiteThrower playerScript;
+	public GameObject heliObject;
+	PlayerMovement heliScript;
 
-    void Start()
+	void Start()
     {
 		ShowMenu(false);
 	}
@@ -31,7 +33,10 @@ public class PauseMenu : MonoBehaviour
 		PauseMenuObject.SetActive(b);
 		playerObject = GameObject.FindGameObjectWithTag("DynomiteDude");
 		playerScript = playerObject.GetComponent<DynamiteThrower>();
+		heliObject = GameObject.FindGameObjectWithTag("Player");
+		heliScript = heliObject.GetComponent<PlayerMovement>();
 		playerScript.disableThrow = b;
+		heliScript.disableStuff = b;
 		Time.timeScale = b ? 0f : 1f;
 	}
 

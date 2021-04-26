@@ -16,6 +16,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public int maxHealth = 15;
 	public int currentHealth;
+
 	
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -45,7 +46,12 @@ public class CharacterController2D : MonoBehaviour
 			OnLandEvent = new UnityEvent();
 	}
 
-	private void FixedUpdate()
+    private void Start()
+    {
+
+	}
+
+    private void FixedUpdate()
 	{
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
