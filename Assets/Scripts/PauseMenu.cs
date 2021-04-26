@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
 
 	public void ToMenu(int sceneIndex)
 	{
+		ShowMenu(false);
 		SceneManager.LoadScene(sceneIndex);
 	}
 
