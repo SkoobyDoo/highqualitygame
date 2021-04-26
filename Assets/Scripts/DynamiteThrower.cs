@@ -29,6 +29,10 @@ public class DynamiteThrower : MonoBehaviour
 	public AudioClip wilhelmScream;
 	public int currentDynomiteCount = 5;
 	public bool disableThrow = false;
+	
+	public Gradient m_throwPowerGradient;
+	public GameObject m_throwPowerSpriteObject;
+	private GameObject throwMeterInstance;
 
 	AudioClip RandomThrowClip()
     {
@@ -72,15 +76,29 @@ public class DynamiteThrower : MonoBehaviour
 
 			else if (throwState == "Unprepped" && !disableThrow)
 			{ 
+				// start a new throw
 				StartThrowPrepTime = DateTime.Now.Ticks;
 				TargetThrowPrepTime = DurationThrowPrepTime;
 				throwState = "PrepThrow";
+				
+				// spawn m_throwPowerSpriteObject below us as a child of us
+				throwMeterInstance = Instantiate(m_throwPowerSpriteObject, transform.position, Quaternion.identity);
+				throwMeterInstance.transform.parent = transform;
+				throwMeterInstance.transform.position -= new Vector3(0f, -0.6f, 0f);
 			}
 
 			else if (throwState == "PrepThrow" && !disableThrow)
 			{
+				// continue charging a throw
 				CurrentThrowPrepTime = DateTime.Now.Ticks - StartThrowPrepTime;
 				CurrentSquashPercent = SinSquashToTargetVal(CurrentThrowPrepTime, TargetThrowPrepTime);
+				// color throwMeterInstance's sprite color using mark's insane math combined with m_throwPowerGradient
+				float chargeRatio = (float)CurrentThrowPrepTime/TargetThrowPrepTime;
+				throwMeterInstance.GetComponent<SpriteRenderer>().color = m_throwPowerGradient.Evaluate(Mathf.Clamp(chargeRatio, 0f, 1f));
+				Vector3 scale = throwMeterInstance.transform.localScale;
+				Debug.Log(Mathf.Lerp(.4f, 2f, chargeRatio));
+				scale.x = Mathf.Lerp(.4f, 2f, chargeRatio);
+				throwMeterInstance.transform.localScale = scale;
 			}
 		}
 
@@ -99,6 +117,7 @@ public class DynamiteThrower : MonoBehaviour
 			// Debug.Log(CurrentSquashPercent);
 			// Debug.Log(maxThrowMagnitude);
 			// Debug.Log(throwLength);
+			Destroy(throwMeterInstance);
 			dynamiteBody.AddTorque(UnityEngine.Random.Range(2f,-2f));
 			audioSource.PlayOneShot(RandomThrowClip());
 		}
