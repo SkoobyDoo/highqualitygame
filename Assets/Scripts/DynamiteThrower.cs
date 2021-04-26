@@ -28,6 +28,7 @@ public class DynamiteThrower : MonoBehaviour
 	public AudioClip dedAudio;
 	public AudioClip wilhelmScream;
 	public int currentDynomiteCount = 5;
+	public bool disableThrow = false;
 
 	AudioClip RandomThrowClip()
     {
@@ -39,6 +40,7 @@ public class DynamiteThrower : MonoBehaviour
     {
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 		DurationThrowPrepTime = (long)(10000000 * DurationThrowPrepTimeSeconds);
+		disableThrow = false;
 	}
 
     // Update is called once per frame
@@ -54,34 +56,35 @@ public class DynamiteThrower : MonoBehaviour
 			ChangeSprite();
 		}
 
-		if (Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.R) && !disableThrow)
 		{
+			Debug.Log(disableThrow);
 			dudeIsAlive = !dudeIsAlive;
 			ChangeSprite();
 		}
 
-		if (Input.GetButton("Fire1"))
+		if (Input.GetButton("Fire1") && !disableThrow)
 		{
 			if (currentDynomiteCount == 0 && !audioSource.isPlaying)
             {
 				audioSource.PlayOneShot(RandomNoAmmoClip());
             }
 
-			else if (throwState == "Unprepped")
+			else if (throwState == "Unprepped" && !disableThrow)
 			{ 
 				StartThrowPrepTime = DateTime.Now.Ticks;
 				TargetThrowPrepTime = DurationThrowPrepTime;
 				throwState = "PrepThrow";
 			}
 
-			else if (throwState == "PrepThrow")
+			else if (throwState == "PrepThrow" && !disableThrow)
 			{
 				CurrentThrowPrepTime = DateTime.Now.Ticks - StartThrowPrepTime;
 				CurrentSquashPercent = SinSquashToTargetVal(CurrentThrowPrepTime, TargetThrowPrepTime);
 			}
 		}
 
-		if (Input.GetButtonUp("Fire1") && currentDynomiteCount >= 1) {
+		if (Input.GetButtonUp("Fire1") && throwState == "PrepThrow" && currentDynomiteCount >= 1 && !disableThrow) {
 			throwState = "Unprepped";
 			currentDynomiteCount -= 1;
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -93,9 +96,9 @@ public class DynamiteThrower : MonoBehaviour
 			GameObject dynamite = Instantiate(projectile, transform.position, Quaternion.identity);
 			Rigidbody2D dynamiteBody = dynamite.GetComponent<Rigidbody2D>();
 			dynamiteBody.velocity = direction * throwLength;
-			Debug.Log(CurrentSquashPercent);
-			Debug.Log(maxThrowMagnitude);
-			Debug.Log(throwLength);
+			// Debug.Log(CurrentSquashPercent);
+			// Debug.Log(maxThrowMagnitude);
+			// Debug.Log(throwLength);
 			dynamiteBody.AddTorque(UnityEngine.Random.Range(2f,-2f));
 			audioSource.PlayOneShot(RandomThrowClip());
 		}

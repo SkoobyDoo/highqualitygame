@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 	public GameObject PauseMenuObject;
+	public GameObject playerObject;
+	DynamiteThrower playerScript;
 
     void Start()
     {
@@ -15,7 +17,9 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
 		if (Input.GetKeyDown(KeyCode.Escape))
+		{
 			ShowMenu(!PauseMenuObject.activeSelf);
+		}
     }
 
 	private void ShowMenu(bool b)
@@ -23,7 +27,11 @@ public class PauseMenu : MonoBehaviour
 		if (PauseMenuObject.activeSelf == b)
 			return;
 
+		// Debug.Log(b);
 		PauseMenuObject.SetActive(b);
+		playerObject = GameObject.FindGameObjectWithTag("DynomiteDude");
+		playerScript = playerObject.GetComponent<DynamiteThrower>();
+		playerScript.disableThrow = b;
 		Time.timeScale = b ? 0f : 1f;
 	}
 
