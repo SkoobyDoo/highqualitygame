@@ -10,11 +10,13 @@ public class PlayerMovement : MonoBehaviour
 
 	float horizontalMove = 0f;
 	float verticalMove = 0f;
-	
+    public bool disableStuff;
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        disableStuff = false;
     }
 
     // Update is called once per frame
@@ -22,11 +24,11 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
-        if (new Vector2(horizontalMove, verticalMove).magnitude > 0 && !audioSource.isPlaying)
+        if (new Vector2(horizontalMove, verticalMove).magnitude > 0 && !audioSource.isPlaying && !disableStuff)
         {
             audioSource.Play();
         }
-        else if (new Vector2(horizontalMove, verticalMove).magnitude == 0 && audioSource.isPlaying)
+        else if (new Vector2(horizontalMove, verticalMove).magnitude == 0 && audioSource.isPlaying && !disableStuff)
         {
             audioSource.Stop();
         }
