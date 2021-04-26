@@ -6,12 +6,15 @@ public class TriggerWin : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip winClip;
+    public SpriteRenderer spriteRenderer;
+    public Sprite winSprite;
 
     void OnTriggerEnter2D(Collider2D other)
     { // https://gamedevbeginner.com/how-to-play-audio-in-unity-with-examples/#:~:text=Unity%20has%20a%20built%20in,of%20the%20drop%20down%20menu.
         if (other.tag == "DynomiteDude" && !audioSource.isPlaying)
         {
             audioSource.PlayOneShot(winClip);
+            spriteRenderer.sprite = winSprite;
         }
     }
 
