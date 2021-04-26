@@ -111,7 +111,7 @@ public class DynamiteThrower : MonoBehaviour
 	}
 	void AddDynomite()
 	{
-		currentDynomiteCount += 1;
+		currentDynomiteCount += 3;
 		audioSource.PlayOneShot(RandomAmmoPickupClip());
 	}
 
