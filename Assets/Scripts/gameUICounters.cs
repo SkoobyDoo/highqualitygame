@@ -5,11 +5,9 @@ using TMPro;
 
 public class gameUICounters : MonoBehaviour
 {
-    [SerializeField] private TMPro.TextMeshProUGUI textMeshPro;
+	public TMPro.TMP_Text test;
 
-    private GameObject playerObject; 
     DynamiteThrower playerScript;
-    private GameObject heliObject;
     CharacterController2D heliScript;
 
     private int currentDynomiteCount;
@@ -19,38 +17,27 @@ public class gameUICounters : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerObject = GameObject.FindGameObjectWithTag("DynomiteDude");
-        //playerScript = playerObject.GetComponent<DynamiteThrower>();
-        //heliObject = GameObject.FindGameObjectWithTag("Player");
-        //heliScript = heliObject.GetComponent<CharacterController2D>();
-        //textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
-        //heliHealth = heliScript.maxHealth;
+		
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (textMeshPro == null)
+        //textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
+		
+        if (playerScript == null)
+		{
+            playerScript = GameObject.FindGameObjectWithTag("DynomiteDude").GetComponent<DynamiteThrower>();
+        }
+        if (heliScript == null)
         {
-            textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
+            heliScript = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController2D>();
         }
-        if (playerObject == null)
-            if (playerObject == null)
-            {
-            playerObject = GameObject.FindGameObjectWithTag("DynomiteDude");
-            playerScript = playerObject.GetComponent<DynamiteThrower>();
-        }
-        if (heliObject == null)
-        {
-            heliObject = GameObject.FindGameObjectWithTag("Player");
-            heliScript = heliObject.GetComponent<CharacterController2D>();
-        }
+		
         currentDynomiteCount = playerScript.currentDynomiteCount;
-        //Debug.Log(currentDynomiteCount);
         dynodudeAlive = playerScript.dudeIsAlive;
-        //Debug.Log(dynodudeAlive);
         heliHealth = heliScript.currentHealth;
-        //Debug.Log(heliHealth);
-        textMeshPro.text = string.Format("dynoMITE: {0}\nthe_guy is alive: {1}\nhelicopter health: {2}", currentDynomiteCount, dynodudeAlive, heliHealth);
+		
+		test.text = string.Format("dynoMITE: {0}\nthe_guy is alive: {1}\nhelicopter health: {2}", currentDynomiteCount, dynodudeAlive, heliHealth);
     }
 }
