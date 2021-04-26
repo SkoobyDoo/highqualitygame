@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="nodyno3_data" version="1.3.0" audacityversion="2.2.2" sel0="1.6602267574" sel1="4.0634920635" vpos="0" h="0.0000000000" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Audio Track" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="1.66022676" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="105984">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808049.au" len="105984" min="-0.131012" max="0.176788" rms="0.032915"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
