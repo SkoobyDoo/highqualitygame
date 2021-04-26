@@ -16,8 +16,14 @@ public class MainMenu : MonoBehaviour
 	public GameObject SettingsObject;
 	public Toggle[] ResolutionToggles;
 	public AudioMixer MainMixer;
-	public Slider VolumeSlider;
-	public TextMeshProUGUI VolumeLabel;
+	public TextMeshProUGUI MasterVolumeLabel;
+	public Slider MasterVolumeSlider;
+	public TextMeshProUGUI SFXVolumeLabel;
+	public Slider SFXVolumeSlider;
+	public TextMeshProUGUI MusicVolumeLabel;
+	public Slider MusicVolumeSlider;
+	public TextMeshProUGUI DialogueVolumeLabel;
+	public Slider DialogueVolumeSlider;
 
 	private void Start()
     {
@@ -31,7 +37,7 @@ public class MainMenu : MonoBehaviour
 		//Settings Menu
 		InitializeResolutionToggles();
 
-		VolumeLabel.text = VolumeSlider.value.ToString("P0");
+		MasterVolumeLabel.text = MasterVolumeSlider.value.ToString("P0");
 	}
 
 	//Main Menu
@@ -110,10 +116,31 @@ public class MainMenu : MonoBehaviour
 		ResolutionToggles[3].SetIsOnWithoutNotify(id == 3);
 	}
 
-	public void SetVolume(float value)
+	public void SetMasterVolume(float value)
 	{
-		VolumeLabel.text = value.ToString("P0");
+		MasterVolumeLabel.text = value.ToString("P0");
 
-		MainMixer.SetFloat("volume", Mathf.LerpUnclamped(-80f, 0f, value));
+		MainMixer.SetFloat("volumeMaster", Mathf.LerpUnclamped(-80f, 0f, value));
+	}
+
+	public void SetSFXVolume(float value)
+	{
+		SFXVolumeLabel.text = value.ToString("P0");
+
+		MainMixer.SetFloat("volumeSFX", Mathf.LerpUnclamped(-80f, 0f, value));
+	}
+
+	public void SetMusicVolume(float value)
+	{
+		MusicVolumeLabel.text = value.ToString("P0");
+
+		MainMixer.SetFloat("volumeMusic", Mathf.LerpUnclamped(-80f, 0f, value));
+	}
+
+	public void SetDialogueVolume(float value)
+	{
+		DialogueVolumeLabel.text = value.ToString("P0");
+
+		MainMixer.SetFloat("volumeDialogue", Mathf.LerpUnclamped(-80f, 0f, value));
 	}
 }
