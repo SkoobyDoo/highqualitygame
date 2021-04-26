@@ -171,7 +171,7 @@ MonoBehaviour:
   maxVerticalSpeed: 60
   maxHealth: 15
   currentHealth: 0
-  audioSource: {fileID: 1643559148}
+  audioSource: {fileID: 0}
   heliHitClips:
   - {fileID: 8300000, guid: 005dce71466f8014ea308e6334215ed7, type: 3}
   - {fileID: 8300000, guid: 727f5b1c137ae7c41b92ab858378dd4f, type: 3}
@@ -324,7 +324,7 @@ AudioSource:
   m_GameObject: {fileID: 1139238162670543411}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 6258abc45eca39845ab14f9f65882b6f, type: 2}
+  OutputAudioMixerGroup: {fileID: 6652246382133678423, guid: 6258abc45eca39845ab14f9f65882b6f, type: 2}
   m_audioClip: {fileID: 8300000, guid: fd5d880fd4b8347489831871d2979e1b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -420,7 +420,7 @@ AudioSource:
   m_GameObject: {fileID: 1139238162670543411}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 6258abc45eca39845ab14f9f65882b6f, type: 2}
+  OutputAudioMixerGroup: {fileID: 6652246382133678423, guid: 6258abc45eca39845ab14f9f65882b6f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
