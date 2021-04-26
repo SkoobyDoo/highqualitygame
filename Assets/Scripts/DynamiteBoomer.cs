@@ -9,11 +9,12 @@ public class DynamiteBoomer : MonoBehaviour
 	
 	private float m_age = 0f;
     public float explosionRadius = 25.0f;
+
+
 	
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class DynamiteBoomer : MonoBehaviour
 			// TODO: bewm?
 			Instantiate(m_particle,transform.position, Quaternion.identity);
             ExplosionDamage(gameObject.transform.position, explosionRadius);
+            //transform.position = Vector2.one * 9999f; //move object away before getting destroyed so that the sfx will finish
             Destroy(gameObject);
         }
     }
@@ -39,7 +41,7 @@ public class DynamiteBoomer : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             {
-                Debug.Log("found a damageable");
+                //Debug.Log("found a damageable");
                 hitCollider.SendMessage("AddDamage");
             }
         }

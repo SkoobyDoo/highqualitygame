@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 	public CharacterController2D controller;
+    public AudioSource audioSource;
 	
+
 	float horizontalMove = 0f;
 	float verticalMove = 0f;
 	
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,14 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
+        if (new Vector2(horizontalMove, verticalMove).magnitude > 0 && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        else if (new Vector2(horizontalMove, verticalMove).magnitude == 0 && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 	
     void FixedUpdate()
