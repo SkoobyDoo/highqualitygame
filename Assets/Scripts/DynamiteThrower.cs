@@ -21,6 +21,15 @@ public class DynamiteThrower : MonoBehaviour
 	private float ResultVal;
 	private float CurrentSquashPercent;
 	public float maxThrowMagnitude = 20.0f;
+	public AudioSource audioSource;
+	public AudioClip[] audioClipArray;
+	public AudioClip dedAudio;
+	public AudioClip wilhelmScream;
+
+	AudioClip RandomClip()
+    {
+		return audioClipArray[UnityEngine.Random.Range(0, audioClipArray.Length)];
+    }
 
 	// Start is called before the first frame update
 	void Start()
@@ -32,6 +41,11 @@ public class DynamiteThrower : MonoBehaviour
     // Update is called once per frame
     void Update()
 	{
+		if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -25 && !audioSource.isPlaying)
+        {
+			audioSource.PlayOneShot(wilhelmScream, 0.25f);
+        }
+
 		if (!dudeIsAlive)
 		{
 			ChangeSprite();
@@ -74,12 +88,14 @@ public class DynamiteThrower : MonoBehaviour
 			Debug.Log(maxThrowMagnitude);
 			Debug.Log(throwLength);
 			dynamiteBody.AddTorque(UnityEngine.Random.Range(2f,-2f));
+			audioSource.PlayOneShot(RandomClip());
 		}
 	}
 
 	void AddDamage()
 	{
 		dudeIsAlive = false;
+		audioSource.PlayOneShot(dedAudio);
 	}
 
 	private float SinSquashToTargetVal(long CurrentTime, long TargetTime)

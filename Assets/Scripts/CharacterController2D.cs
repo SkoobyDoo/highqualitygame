@@ -13,6 +13,9 @@ public class CharacterController2D : MonoBehaviour
 	public float maxHorizontalSpeed = 60f;
 	public float verticalAcceleration = 1f;
 	public float maxVerticalSpeed = 60f;
+
+	public int maxHealth = 15;
+	public int currentHealth;
 	
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -20,6 +23,10 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
+
+	public AudioSource audioSource;
+	public AudioClip[] heliHitClips;
+	public AudioClip dedAudioClip;
 
 	[Header("Events")]
 	[Space]
@@ -32,6 +39,7 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		currentHealth = maxHealth;
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -88,6 +96,25 @@ public class CharacterController2D : MonoBehaviour
 		//m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 	}
 
+	AudioClip RandomClip()
+	{
+		return heliHitClips[UnityEngine.Random.Range(0, heliHitClips.Length)];
+	}
+
+	void AddDamage()
+	{
+		currentHealth -= 1;
+
+		if (currentHealth >0 && !audioSource.isPlaying)
+		{
+			audioSource.PlayOneShot(RandomClip());
+		}
+
+		else if (currentHealth == 0)
+        {
+			audioSource.PlayOneShot(dedAudioClip);
+        }
+	}
 
 	private void Flip()
 	{
