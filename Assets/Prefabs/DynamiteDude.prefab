@@ -126,13 +126,23 @@ MonoBehaviour:
   DurationThrowPrepTimeSeconds: 3
   maxThrowMagnitude: 25
   audioSource: {fileID: -8758578681088488521}
-  audioClipArray:
+  ThrowClips:
   - {fileID: 8300000, guid: 5fc4110311ef1954e9a2365d22f7a91e, type: 3}
   - {fileID: 8300000, guid: a39854d4a86cc0d459695f426b7fccf5, type: 3}
   - {fileID: 8300000, guid: 80a475d795008e8468a37c694f5af827, type: 3}
   - {fileID: 8300000, guid: a7083f22206356a45bb5efcf9f29283c, type: 3}
+  NoAmmoClips:
+  - {fileID: 8300000, guid: be40874f9b0440f4d89d940abfc3ba81, type: 3}
+  - {fileID: 8300000, guid: 8cce4cd2311db4d458f3b67123e4e909, type: 3}
+  - {fileID: 8300000, guid: 959c28eaa0244a84eba9684daa9029f9, type: 3}
+  AmmoPickupClips:
+  - {fileID: 8300000, guid: 5d76717d5e3b89943a907a51cdac8393, type: 3}
+  - {fileID: 8300000, guid: bedfbff9553821d4abef20ec3163dae3, type: 3}
+  - {fileID: 8300000, guid: 9fc78f3e95901b041a30ebe5c537a7cb, type: 3}
+  - {fileID: 8300000, guid: 961d3f838d2465e44a466391187c7c5e, type: 3}
   dedAudio: {fileID: 8300000, guid: b5c3a1029893e7748b2af77507ce3b68, type: 3}
   wilhelmScream: {fileID: 8300000, guid: 0c1583b8a47bc2b4bb04c69365b94932, type: 3}
+  currentDynomiteCount: 5
 --- !u!50 &6751657228828226209
 Rigidbody2D:
   serializedVersion: 4

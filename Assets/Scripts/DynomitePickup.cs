@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamiteDude : MonoBehaviour
+public class DynomitePickup : MonoBehaviour
 {
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.tag == "DynomiteDude")
+        {
+            other.SendMessage("AddDynomite");
+            Destroy(gameObject);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +27,5 @@ public class DynamiteDude : MonoBehaviour
     {
         
     }
+
 }

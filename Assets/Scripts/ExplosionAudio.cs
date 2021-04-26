@@ -12,15 +12,15 @@ public class ExplosionAudio : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.PlayOneShot(explosionClip);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!audioSource.isPlaying)
-        {
-            // Debug.Log("should be playing boom here");
-            audioSource.PlayOneShot(explosionClip);
-        }
+        //if (!audioSource.isPlaying)
+        //{
+        //    // Debug.Log("should be playing boom here");
+        //}
     }
 }
