@@ -18,22 +18,27 @@ public class CameraFollow : MonoBehaviour
 	
 	private Vector3 camVelocity = new Vector3();
 	private float camZoomVelocity = 0f;
+	private GameObject mouseFollow;
 	
     // Start is called before the first frame update
     void Start()
     {
-		
+		mouseFollow = new GameObject("MouseFollow");
+		mouseFollow.transform.SetParent(this.gameObject.transform.parent);
     }
 
     // Update is called once per frame
     void Update()
     {
-		Vector3 targetPos = new Vector3();
+		Camera cam = m_camera.GetComponent<Camera>();
+		mouseFollow.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		
+		Vector3 targetPos = mouseFollow.transform.position;
 		foreach (var x in m_cameraFollowTargets)
 		{
 			targetPos += x.transform.position;
 		}
-		targetPos /= m_cameraFollowTargets.Count;
+		targetPos /= (m_cameraFollowTargets.Count + 1);
 		targetPos.z = m_camera.transform.position.z;
 		
 		Vector3 currentPos = m_camera.transform.position;
@@ -42,7 +47,6 @@ public class CameraFollow : MonoBehaviour
 		//float speedRatio = (Mathf.Clamp(m_cameraFollowTargets[0].GetComponent<Rigidbody2D>().velocity, m_minSpeed, m_maxSpeed) - m_minSpeed) / (m_maxSpeed - m_minSpeed);
 		float speedRatio = Mathf.InverseLerp(m_minSpeed,m_maxSpeed,m_cameraFollowTargets[0].GetComponent<Rigidbody2D>().velocity.magnitude);
 		float targetZoom = Mathf.Lerp(m_minCameraSize,m_maxCameraSize,speedRatio);
-		Camera cam = m_camera.GetComponent<Camera>();
 		cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref camZoomVelocity, m_cameraZoomSmoothing);
 		
 		//cameraGradient
