@@ -22,13 +22,16 @@ public class DynamiteThrower : MonoBehaviour
 	private float CurrentSquashPercent;
 	public float maxThrowMagnitude = 20.0f;
 	public AudioSource audioSource;
-	public AudioClip[] audioClipArray;
+	public AudioClip[] ThrowClips;
+	public AudioClip[] NoAmmoClips;
+	public AudioClip[] AmmoPickupClips;
 	public AudioClip dedAudio;
 	public AudioClip wilhelmScream;
+	public int currentDynomiteCount = 5;
 
-	AudioClip RandomClip()
+	AudioClip RandomThrowClip()
     {
-		return audioClipArray[UnityEngine.Random.Range(0, audioClipArray.Length)];
+		return ThrowClips[UnityEngine.Random.Range(0, ThrowClips.Length)];
     }
 
 	// Start is called before the first frame update
@@ -59,22 +62,28 @@ public class DynamiteThrower : MonoBehaviour
 
 		if (Input.GetButton("Fire1"))
 		{
-			if (throwState == "Unprepped")
+			if (currentDynomiteCount == 0 && !audioSource.isPlaying)
+            {
+				audioSource.PlayOneShot(RandomNoAmmoClip());
+            }
+
+			else if (throwState == "Unprepped")
 			{ 
 				StartThrowPrepTime = DateTime.Now.Ticks;
 				TargetThrowPrepTime = DurationThrowPrepTime;
 				throwState = "PrepThrow";
 			}
 
-			if (throwState == "PrepThrow")
+			else if (throwState == "PrepThrow")
 			{
 				CurrentThrowPrepTime = DateTime.Now.Ticks - StartThrowPrepTime;
 				CurrentSquashPercent = SinSquashToTargetVal(CurrentThrowPrepTime, TargetThrowPrepTime);
 			}
 		}
 
-		if (Input.GetButtonUp("Fire1")) {
+		if (Input.GetButtonUp("Fire1") && currentDynomiteCount >= 1) {
 			throwState = "Unprepped";
+			currentDynomiteCount -= 1;
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			Vector2 direction = (Vector2)((mousePos - transform.position)); 
@@ -88,7 +97,7 @@ public class DynamiteThrower : MonoBehaviour
 			Debug.Log(maxThrowMagnitude);
 			Debug.Log(throwLength);
 			dynamiteBody.AddTorque(UnityEngine.Random.Range(2f,-2f));
-			audioSource.PlayOneShot(RandomClip());
+			audioSource.PlayOneShot(RandomThrowClip());
 		}
 	}
 
@@ -96,6 +105,11 @@ public class DynamiteThrower : MonoBehaviour
 	{
 		dudeIsAlive = false;
 		audioSource.PlayOneShot(dedAudio);
+	}
+	void AddDynomite()
+	{
+		currentDynomiteCount += 1;
+		audioSource.PlayOneShot(RandomAmmoPickupClip());
 	}
 
 	private float SinSquashToTargetVal(long CurrentTime, long TargetTime)
@@ -107,6 +121,15 @@ public class DynamiteThrower : MonoBehaviour
 		ResultVal = (float)(-1.0 * Math.Cos((float)CurrentTime / (float)TargetTime * Math.PI) / 2.0 + 0.5);
 
 		return ResultVal;
+	}
+
+	AudioClip RandomNoAmmoClip()
+	{
+		return NoAmmoClips[UnityEngine.Random.Range(0, NoAmmoClips.Length)];
+	}
+	AudioClip RandomAmmoPickupClip()
+	{
+		return AmmoPickupClips[UnityEngine.Random.Range(0, AmmoPickupClips.Length)];
 	}
 
 	void ChangeSprite()
