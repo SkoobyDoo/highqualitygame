@@ -120,27 +120,27 @@ public class MainMenu : MonoBehaviour
 	{
 		MasterVolumeLabel.text = value.ToString("P0");
 
-		MainMixer.SetFloat("volumeMaster", Mathf.LerpUnclamped(-80f, 0f, value));
+		MainMixer.SetFloat("volumeMaster", Mathf.LerpUnclamped(-50f, 0f, value));
 	}
 
 	public void SetSFXVolume(float value)
 	{
 		SFXVolumeLabel.text = value.ToString("P0");
 
-		MainMixer.SetFloat("volumeSFX", Mathf.LerpUnclamped(-80f, 0f, value));
+		MainMixer.SetFloat("volumeSFX", Mathf.LerpUnclamped(-50f, 0f, value));
 	}
 
 	public void SetMusicVolume(float value)
 	{
 		MusicVolumeLabel.text = value.ToString("P0");
 
-		MainMixer.SetFloat("volumeMusic", Mathf.LerpUnclamped(-80f, 0f, value));
+		MainMixer.SetFloat("volumeMusic", Mathf.LerpUnclamped(-50f, 0f, value));
 	}
 
 	public void SetDialogueVolume(float value)
 	{
 		DialogueVolumeLabel.text = value.ToString("P0");
 
-		MainMixer.SetFloat("volumeDialogue", Mathf.LerpUnclamped(-80f, 0f, value));
+		MainMixer.SetFloat("volumeDialogue", Mathf.LerpUnclamped(-50f, 0f, value));
 	}
 }
