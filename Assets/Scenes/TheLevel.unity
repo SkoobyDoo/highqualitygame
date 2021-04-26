@@ -15404,6 +15404,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4264975615987060369, guid: b053f1c5d651c804d9525870360127d9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 6929871327002450183, guid: 6258abc45eca39845ab14f9f65882b6f, type: 2}
     - target: {fileID: 4264975615987060370, guid: b053f1c5d651c804d9525870360127d9, type: 3}
       propertyPath: m_Name
       value: TriggerMainArea
