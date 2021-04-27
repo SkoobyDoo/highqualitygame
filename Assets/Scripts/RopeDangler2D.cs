@@ -10,7 +10,7 @@ public class RopeDangler2D : MonoBehaviour
 	public Transform m_ropeAnchor;
 	
 	public float m_segmentWidth = 0.05f;
-	public float m_segmentLength = 0.5f;
+	public float m_segmentLength = 1.5f;
 	public float m_segmentGap = 0.005f;
 	public float m_segmentMass = 0.005f;
 	public float m_segmentGravity = 1f;

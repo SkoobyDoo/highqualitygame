@@ -2079,6 +2079,10 @@ PrefabInstance:
       propertyPath: m_jointBreakForce
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1139238162670543410, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1084657362}
     - target: {fileID: 1139238162670543414, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
       propertyPath: audioSource
       value: 
@@ -8206,6 +8210,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 021dde2348ef3c844830b6cfd790b0d0, type: 3}
+--- !u!82 &1084657362 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1643559148, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
+  m_PrefabInstance: {fileID: 240512167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1087980531
 GameObject:
   m_ObjectHideFlags: 0
