@@ -2076,8 +2076,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1139238162670543371, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
+      propertyPath: m_segmentLength
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139238162670543371, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
       propertyPath: m_jointBreakForce
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1139238162670543414, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
       propertyPath: audioSource
