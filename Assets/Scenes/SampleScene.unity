@@ -3452,6 +3452,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1139238162670543371, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
+      propertyPath: m_segmentLength
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139238162670543371, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
+      propertyPath: m_jointBreakForce
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1139238162670543410, guid: d4b86c5c15d6ba144a5319cc4905d534, type: 3}
       propertyPath: audioSource
       value: 
