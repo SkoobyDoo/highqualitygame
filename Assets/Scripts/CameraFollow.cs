@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
 	public float m_maxCameraSize = 50f;
 	public float m_minSpeed = 1f;
 	public float m_maxSpeed = 30f;
-	[Range(0, .5f)] public float m_cameraZoomSmoothing = .3f;
+	[Range(0, 5.0f)] public float m_cameraZoomSmoothing = 2.0f;
 	
 	private Vector3 camVelocity = new Vector3();
 	private float camZoomVelocity = 0f;
